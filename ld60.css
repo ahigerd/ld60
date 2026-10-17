@@ -1,0 +1,468 @@
+* {
+  box-sizing: border-box;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+html, body {
+  font-family: sans-serif;
+  background: #808080;
+}
+
+#camera {
+  border: 1px solid white;
+  background: black;
+  margin: auto;
+}
+
+#splash, #helppage {
+  color: white;
+  text-align: center;
+}
+
+#container {
+  background: black;
+  position: absolute;
+}
+
+#container > div:not(.camera):not(.popover), #container > table {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#container > div:not(#camera), #container > table {
+  z-index: 10;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 12vmin;
+  margin: 5vmin 0 2vmin;
+  font-style: italic;
+  text-align: center;
+}
+
+.splashText {
+  display: inline-block;
+  width: 95%;
+  border: 1px solid black;
+  background: rgba(128, 192, 96, .8);
+  padding: 2vmin;
+  text-align: justify;
+  color: black;
+}
+
+#helppage h1 {
+  font-style: normal;
+  font-size:  8vmin;
+}
+
+#helppage table {
+  border-collapse: collapse;
+}
+
+#helppage td, #helppage th {
+  border: 1px solid black;
+  background: rgba(192, 192, 192, 0.4);
+}
+
+#helppage th {
+  border-bottom: 3px double black;
+}
+
+#helppage td span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.keyboard {
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius: 3px;
+  min-width: 1.5em;
+  min-height: 1.5em;
+  line-height: 1.5em;
+  margin: 4px 2px;
+  vertical-align: middle;
+  background: #c0c0c0;
+  text-align: center;
+}
+
+.keyboard.spacebar {
+  font-weight: normal;
+  color: #606060;
+  width: 6em;
+}
+
+.touch {
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 2px 8px;
+  line-height: 1.5em;
+  margin: 4px 2px;
+  min-width: 4em;
+  vertical-align: middle;
+  background: #e0e0e0;
+  text-align: center;
+}
+
+.touch.comm {
+  background-color: rgba(128, 255, 128, 0.7);
+}
+
+#helppage p {
+  margin: .5vh 0 0 0;
+}
+
+#helppage img {
+  height: 1em;
+  vertical-align: -40%;
+}
+
+@keyframes blink {
+  0% { color: black; }
+  50% { color: transparent; }
+}
+
+#loading .animate {
+  position: absolute;
+  top: calc(50% - 12vmin);
+  width: 100%;
+  left: 0;
+  text-align: center;
+  font-size: 20vmin;
+  font-weight: bold;
+  animation: blink .5s infinite;
+}
+
+#progress {
+  position: absolute;
+  top: calc(50% + 8vmin);
+  width: 100%;
+  left: 0;
+  text-align: center;
+  font-size: 5vmin;
+}
+
+canvas, img {
+  -moz-image-rendering: crisp-edges;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  -webkit-optimize-contrast: pixelated;
+}
+
+#camera canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#camera canvas:first-of-type {
+  background-color: #404040;
+}
+
+.bigbutton {
+  display: inline-block;
+  width: 40%;
+  margin: 2vmin 2vw;
+  padding: 2vmin 2vw;
+  font-size: 6vmin;
+  height: 12vmin;
+  line-height: 8vmin;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.popover .bigbutton {
+  width: 80%;
+}
+.bigbutton.start {
+  background: linear-gradient(rgb(128, 255, 128), rgb(0, 128, 0));
+}
+.bigbutton.easy {
+  background: linear-gradient(rgb(128, 255, 255), rgb(0, 128, 0));
+}
+.bigbutton.help {
+  background: linear-gradient(rgb(255, 255, 128), rgb(128, 128, 0));
+}
+.bigbutton.start:active {
+  background: linear-gradient(rgb(32, 128, 32), rgb(100, 192, 100));
+}
+.bigbutton.easy:active {
+  background: linear-gradient(rgb(32, 128, 128), rgb(100, 192, 100));
+}
+.bigbutton.help:active {
+  background: linear-gradient(rgb(128, 128, 32), rgb(220, 220, 0));
+}
+#helppage td, #helppage th {
+  text-align: center;
+  padding: .1vmin;
+}
+#container > .popover {
+  background: rgba(255, 255, 128, .9);
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  border: 1px solid black;
+  top: 25%;
+  left: 25%;
+}
+
+.popover > div {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: initial;
+  width: 100%;
+}
+
+.popoverContent h2 {
+  animation: blink 2s infinite;
+}
+
+#gameOver.popover {
+  height: 80%;
+  width: 90%;
+  top: 10%;
+  left: 5%;
+  padding: 24px;
+}
+
+h2 {
+  font-size: 6vmin;
+  padding: 0;
+  margin: 0 0 4vh;
+  font-weight: bold;
+}
+
+#pauseBox h2, #pauseBox .bigbutton {
+  margin: 5px;
+}
+
+
+.tui-InventoryUI, .tui-Station {
+  border: 1px solid black;
+  background: #80c0ff;
+}
+
+.tui-InventoryUI {
+  width: 300px;
+}
+
+.tui-Station {
+  width: 500px;
+}
+
+.tui-InventoryUI > h3, .tui-Station > h3, .tui-Computer th {
+  margin: 0;
+  padding: 4px;
+  text-align: left;
+}
+
+.tui-Station .closeBar {
+  text-align: center;
+  border-top: 1px solid black;
+  padding: 4px;
+}
+
+.contents {
+  border-top: 1px solid black;
+  overflow-y: scroll;
+  background: #202060;
+}
+
+.tui-InventoryUI .contents {
+  height: 800px;
+  border-bottom: 1px solid black;
+}
+
+.tui-Station .contents {
+  height: 400px;
+}
+
+.meter {
+  display: inline-block;
+  position: relative;
+  background: #400000;
+  border: 1px solid black;
+  vertical-align: middle;
+}
+
+.meter > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.meter > div:not(.display) {
+  background: #00c000;
+}
+
+#energy {
+  border-right: 1px solid black;
+}
+
+#energyDamage {
+  background: #ffff00;
+}
+
+#hud > div {
+  display: inline-block;
+  font-family: monospace;
+  margin: 0.5vh;
+  padding: 0;
+  border: 2px solid black;
+  border-radius: 8px;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+#hud > div > div {
+  background: #000080;
+  color: #ffffff;
+  vertical-align: top;
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 0.5vh 0.75vh;
+}
+
+#hud img {
+  vertical-align: middle;
+}
+
+#gameOver td {
+  font-size: 200%;
+  padding: 0 0.5em;
+}
+
+#gameOver tr td:first-of-type {
+  text-align: right;
+}
+
+.buttons .button.disabled {
+  background-color: rgba(128, 0, 0, 0.5);
+}
+.buttons .button.enabled {
+  background-color: rgba(128, 255, 128, 0.7);
+  animation: button-blink 0.5s step-start infinite;
+}
+@keyframes button-blink {
+  50% {
+    background-color: rgba(0, 192, 0, 0.6);
+  }
+}
+
+#commFrame {
+  visibility: hidden;
+  position: absolute;
+  left: 20px !important;
+  width: calc(100% - 40px) !important;
+  top: initial !important;
+  bottom: 10% !important;
+  height: 0 !important;
+  transition: height 0.5s, bottom 0.5s;
+}
+
+#commFrame.open {
+  visibility: visible;
+  height: 30% !important;
+  bottom: 20px !important;
+}
+
+#commText, #commPortrait, #commPortraitFrame {
+  border: 0 solid #e0e0ff;
+  border-radius: 20px;
+  transition: border-width 0.5s;
+  position: absolute;
+  top: 0;
+  height: 100%;
+}
+
+#commFrame.open > div {
+  border-width: 8px;
+}
+
+#commPortraitFrame {
+  position: relative;
+  left: 0;
+  width: 15%;
+  background: linear-gradient(180deg, #303060 0%, #404040 100%);
+}
+
+#commPortrait {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+}
+
+#commText {
+  left: calc(15% + 20px);
+  text-align: left !important;
+  right: 0;
+  color: #e0e0ff;
+  font-family: sans-serif;
+  font-size: 3vh;
+  padding: 20px;
+  background: linear-gradient(180deg, #303060 0%, #404040 100%);
+}
+
+#commContinue {
+  display: inline-block;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  color: #e0e0ff;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 20pt;
+  animation: blink .5s infinite;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+#help2 img {
+  background: black;
+  padding: 2px;
+  height: 32px;
+}
+
+#help3 td, #help3 tr {
+  font-size: 20px;
+  padding: 10px;
+}
+
+#help3 img {
+  height: auto;
+}
+
+body.comms #dpad {
+  display: none;
+  visibility: hidden;
+}
+
+#fullscreen {
+  background: #808080;
+}

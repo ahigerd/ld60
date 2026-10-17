@@ -1,0 +1,78 @@
+#pauseContainer {
+  position: fixed;
+  left: 40%;
+  width: 20%;
+  overflow: visible;
+  bottom: 2vmin;
+  text-align: center;
+}
+#dpad {
+  position: fixed;
+  left: 2vmin;
+  bottom: 2vmin;
+  width: 21vmin;
+  height: 21vmin;
+  border: 1px solid black;
+  border-radius: 7vmin;
+}
+.dpad div {
+  width: 7vmin;
+  height: 7vmin;
+  line-height: 7vmin;
+  text-align: center;
+  border: 1px solid black;
+  margin: -1px;
+  background-color: white;
+  color: black;
+}
+.dpad div.active {
+  background-color: black;
+  color: white;
+}
+.dpad .up {
+  position: absolute;
+  top: 0;
+  left: 7vmin;
+}
+.dpad .left {
+  position: absolute;
+  left: 0;
+  top: 7vmin;
+}
+.dpad .right {
+  position: absolute;
+  right: 0;
+  top: 7vmin;
+}
+.dpad .down {
+  position: absolute;
+  bottom: 0;
+  left: 7vmin;
+}
+#buttons {
+  position: fixed;
+  right: 2vmin;
+  bottom: 2vmin;
+  height: 7vmin;
+}
+.buttons .button, .pause .button {
+  display: inline-block;
+  width: 7vmin;
+  height: 7vmin;
+  line-height: 7vmin;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 2vmin;
+  margin: -1px;
+  background-color: white;
+  color: black;
+}
+.pause .button {
+  width: auto;
+  padding: 0 2vmin;
+}
+.buttons .button.active, .pause .button.active {
+  background-color: black;
+  color: white;
+}
+

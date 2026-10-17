@@ -1,0 +1,10 @@
+*.sw*
+dist
+build/assetImports.js
+build/assetlist.js
+build/node_modules
+build/.cache
+build/package-lock.json
+closure-library
+geckodriver
+webdriverio-test

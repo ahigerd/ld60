@@ -1,0 +1,156 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, user-zoom=fixed" />
+<script type='text/javascript'>
+document.write(`<link rel="stylesheet" href="style_TouchControls.css?cb=${Math.random()}" />`);
+document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
+</script>
+</head>
+<body>
+<div id='fullscreen'>
+<div id='container'>
+  <div id='camera'></div>
+  <div id='commFrame'>
+    <div id='commPortraitFrame'>
+      <div id='commPortrait'>&nbsp;</div>
+    </div>
+    <div id='commText'>&nbsp;</div>
+    <span id='commContinue' style='display:none'>&LeftTriangle;</span>
+  </div>
+  <div id='loading'>
+    <div class='animate'>Loading...</div>
+    <div id='progress'>0%</div>
+  </div>
+  <div id='splash'>
+    <h1>Network Bridge</h1>
+    <div class='splashText'>
+      The invading Magnetar Army has sent out advance forces to sabotage the interstellar relay network! Transmission signals
+      have been limited, blocking warp travel through the galaxy. Travel to the four quadrants of the galaxy to destroy the
+      invaders and reactivate the relay stations!<br/><br/>
+
+      Some members of the resistance survived the Magnetar assault. Rescue them from their damaged ships and they will aid
+      you in your mission!<br/><br/>
+
+      <div style='text-align: center; font-size: 70%'>Keyboard and touch controls available. Press Help for more information.</div>
+    </div>
+    <a id='startButton' class='bigbutton start'>Start Game</a>
+    <a id='easyButton' class='bigbutton easy' style='display:none'>Easy Mode</a>
+    <a id='helpButton' class='bigbutton help'>Help</a><br/>
+    <label for='enableFullscreen' style='font-size:150%'><input id='enableFullscreen' type='checkbox'> Fullscreen</label>
+  </div>
+  <div id='helppage'>
+    <h1>How to Play</h1>
+    <div class='splashText' style='text-align:center'>
+      <table width='50%' align='center' style='font-size: 20px' id='help1'>
+        <tr><th align='center'><u>Action</u></th>
+            <th align='center'><u>Lefty</u></th>
+            <th align='center'><u>Righty</u></th>
+            <th align='center'><u>Touch</u></th></tr>
+        <tr><td>Move</td>
+            <td><span class='keyboard'>W</span>
+                <br/>
+                <span class='keyboard'>A</span>
+                <span class='keyboard'>S</span>
+                <span class='keyboard'>D</span>
+            </td>
+            <td><span class='keyboard'>&uarr;</span>
+                <br/>
+                <span class='keyboard'>&larr;</span>
+                <span class='keyboard'>&darr;</span>
+                <span class='keyboard'>&rarr;</span>
+            </td>
+            <td><span style='font-size:200%'>&#x271A;</span> <span>D-Pad</span></td>
+        </tr>
+        <tr><td>Fire</td>
+          <td><span class='keyboard spacebar'>Space</span></td>
+          <td><span class='keyboard'>Z</span></td>
+          <td><span class='touch'>Fire</span></td>
+        </tr>
+        <tr><td>Signal</td>
+          <td><span class='keyboard'>M</span></td>
+          <td><span class='keyboard'>X</span></td>
+          <td><span class='touch comm'>Comm</span></td>
+        </tr>
+        <tr><td>Pause</td>
+          <td colspan='2'><span class='keyboard' style='padding: 2px 8px'>Escape</span></td>
+          <td><span class='touch'>Pause</span></td>
+        </tr>
+      </table>
+      <ul style='font-size: 20px;text-align:left;display:none' id='help2'>
+        <img style='float:right;height:25vh' src='help-radar.png' />
+        <li>Destroy all enemies near relay stations before docking</li>
+        <li>Rescue pilots from damaged ships for powerups and repairs</li>
+        <li>Ship is lost when signal strength reaches zero</li>
+        <li>Radar shows enemies, damaged ships, and relay stations</li>
+        <li>Relay stations and damaged ships are highlighted</li>
+        <li><img src='help-health.png' /> Current signal strength</li>
+        <li><img src='help-lives.png' /> Extra lives remaining</li>
+        <li><img src='help-comm.png' /> Signal available (<img src='help-comm-replay.png' /> already seen)</li>
+      </ul>
+      <div style='font-size: 20px;text-align:left;display:none' id='help3'>
+        <center style='font-size: 200%;padding-bottom: 10px;font-weight:bold'>Strategies</center>
+        <table align='center'>
+          <tr><td width='50%'>
+              <img src='help-mine.png' /> <b>Magnetic Mine</b><br/><br/>
+              Follows you. Lead it away,<br/>then turn around and fire!
+          </td><td width='50%'>
+              <img src='help-turret.png' /> <b>Patrol Cannon</b><br/><br/>
+              Moves, then attacks.<br/>Watch its pattern and find an opening!
+          </tr>
+          <tr><td width='50%'>
+              <img src='help-laser.png' /> <b>Laser Turret</b><br/><br/>
+              Locks on with a laser.<br/>
+              Stay out of its range!
+          </td><td width='50%'>
+              <img src='assets/relay.png' style='float:left' />
+              <div style='display:inline-block'>
+                <b>Relay Station</b><br/><br/>
+                Defeat all nearby enemies,<br/>then touch to activate.
+              </div>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <a id='helpBackButton' class='bigbutton help'>&lt; Back</a>
+    <a id='helpNextButton' class='bigbutton help'>Next &gt;</a>
+  </div>
+  <div id='pauseBox' class='popover'>
+    <div>
+      <h2>PAUSED</h2>
+      <a id='resumeButton' class='bigbutton start'>Continue</a>
+      <a id='exitButton' class='bigbutton help'>Resign</a>
+    </div>
+  </div>
+  <div id='gameOver' class='popover'>
+    <div style='text-align: center'>
+      <div id='gameOverWin'>
+        <h2><u>Victory!</u></h2>
+        <div style='font-size: 20pt'>
+          You have reconnected the galactic relay network<br/>
+          and achieved victory over the Magnetar Army!
+        </div>
+      </div>
+      <div id='gameOverLose'>
+        <h2><u>Game Over</u></h2>
+      </div>
+      <table align='center'>
+        <tr><td><b>Relay Stations Activated:</b></td><td><span id='gameOverLevel'>0</span> / 4</td></tr>
+        <tr><td><b>Escape Pods Rescued:</b></td><td><span id='gameOverPods'>0</span> / 10</td></tr>
+      </table>
+      <a id='gameOverStartButton' class='bigbutton start'>Return to Title</a>
+    </div>
+  </div>
+</div>
+<div id='dpad'></div>
+<div id='buttons'></div>
+<div id='pauseContainer'></div>
+<script>
+(function() {
+  const script = document.createElement('SCRIPT');
+  script.setAttribute('type', 'module');
+  script.setAttribute('src', 'main.js?cb=' + Date.now());
+  document.body.appendChild(script);
+})()
+</script>
+</body>
+</html>
