@@ -20,6 +20,9 @@ for (let factor = 1; factor <= 6; factor++) {
     query.push(`((width < ${maxWidth}px) or (height < ${maxHeight}px))`);
   }
   stylesheets.push(`${query.join(' and ')} {
+    .warning {
+      zoom: ${factor};
+    }
     #container {
       left: calc(50% - ${minWidth / 2}px);
       top: calc(50% - ${minHeight / 2}px);
@@ -31,8 +34,8 @@ for (let factor = 1; factor <= 6; factor++) {
     }
     .splashText { font-size: ${minHeight / 25}px }
     .popover { line-height: 50vh } /*${minHeight / 2}px }*/
-    #hud {
-      font-size: ${15 * factor}px;
+    #hud td {
+      font-size: ${10 * factor}px;
     }
     #hud img {
       height: ${21 * factor}px;

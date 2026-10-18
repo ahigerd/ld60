@@ -143,6 +143,7 @@ export class AnimationFrame extends Rect {
     this.imageBounds = new Int32Array(4);
     this.imageBounds[0] = (flipX ? image.width - x - w : x);
     this.imageBounds[1] = (flipY ? image.height - y - h : y);
+    // this.imageBounds[1] = y;
     this.imageBounds[2] = w;
     this.imageBounds[3] = h;
   }
@@ -288,7 +289,6 @@ export class Sprite {
   constructor(config = {}, origin = null) {
     Object.assign(this, defaultProps);
     Object.assign(this, Sprite.prepareConfig(config));
-    console.log(Sprite.prepareConfig(config), this.layer)
     this._origin = new Point(origin || config.origin || [0, 0]);
 
     const currentAnimation = this.currentAnimation;

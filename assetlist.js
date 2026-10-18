@@ -4,5 +4,6 @@ export default {
   sounds: {
   },
   prefabs: {
+    player: 'assets/progress.js',
   },
 };

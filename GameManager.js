@@ -43,7 +43,7 @@ const GameManager = {
   difficulty: 0,
   enemiesRemaining: 0,
   engine: new ExtendedEngine({ showFps: false }),
-  camera: new Camera(document.getElementById('camera'), CONFIG.width * 6, CONFIG.height * 6, 5),
+  camera: new Camera(document.getElementById('camera'), CONFIG.widthPx, CONFIG.heightPx, 5),
   disableFullscreen: false,
 
   init(assets) {
@@ -70,11 +70,7 @@ const GameManager = {
     this.bindEvent(ui.resumeButton, 'click', this.bindFullscreenThen(() => this.engine.start()));
     this.bindEvent(ui.enableFullscreen.root, 'change', this.enableFullscreen.bind(this));
 
-    this.camera.layers[0].noTransform = true;
-    this.camera.layers[0].autoClear = false;
-    this.camera.layers[3].noTransform = true;
-    this.camera.layers[3].autoClear = false;
-    this.camera.layers[4].noTransform = true;
+    this.camera.layers[1].noTransform = true;
     this.engine.cameras.push(this.camera);
     this.camera.setXY(1, 1);
     this.camera.setScale(6, 6);
@@ -88,7 +84,6 @@ const GameManager = {
       document.getElementById('buttons'),
       document.getElementById('pauseContainer'),
       [
-        { label: 'Comm', key: 'x', id: 'comm' },
         { label: 'Fire', key: 'z' },
       ],
     );
@@ -96,10 +91,10 @@ const GameManager = {
     this.touchControls.addEventListener('enginekeydown', event => this.engine.dispatchEvent('enginekeydown', event.detail));
     this.touchControls.addEventListener('enginekeyup', event => this.engine.dispatchEvent('enginekeyup', event.detail));
     this.touchControls.hidden = true;
-    this.commButton = this.touchControls.buttons.comm;
-    this.commButton.classList.add("disabled");
+    this.touchControls.touchEnabled = false;
 
     GameManager.showTitle();
+    GameManager.newGame();
   },
 
   bindEvent(target, eventName, callback, options = undefined) {
@@ -120,7 +115,8 @@ const GameManager = {
 
     this.scene = this.engine.activeScene = new Scene();
 
-    //ui.hud.hide();
+    ui.hud.hide();
+    ui.container.show();
     ui.loading.hide();
     ui.helppage.hide();
     ui.gameOver.hide();
@@ -216,7 +212,7 @@ const GameManager = {
     this.win = false;
     this.score = 0;
     this.addScore(0);
-    // ui.hud.show();
+    ui.hud.show();
     ui.splash.hide();
     ui.gameOver.hide();
     this.scene = new Scene();
@@ -238,7 +234,7 @@ const GameManager = {
   },
 
   onPause() {
-    this.bgm.pause();
+    //this.bgm.pause();
     if (this.isPlaying && state == "playing") {
       this.exitFullscreen();
       ui.pauseBox.show();
@@ -253,7 +249,7 @@ const GameManager = {
       this.touchControls.hidden = false;
       ui.fullscreen.classList.add('touch');
     }
-    this.bgm.play();
+    //this.bgm.play();
   },
 
   winGame() {
@@ -283,7 +279,7 @@ const GameManager = {
   },
 
   get isPlaying() {
-    return state === 'playing' || state == 'comms';
+    return state === 'playing';
   },
 
   getState() {
@@ -295,10 +291,6 @@ const GameManager = {
     document.body.className = t;
     if (this.isPlaying) {
       //assets.sounds.bgm.play();
-    }
-    if (t == 'warp') {
-      this.bgm.stop();
-      assets.sounds.warp.play();
     }
     this.engine.pauseOnBlur = (t != 'death' && t != 'warp');
     this.engine.dispatchEvent('stateChanged', t);
@@ -314,6 +306,7 @@ const GameManager = {
       return;
     }
     this.level += 1;
+    /*
     for (const obj of this.scene.objects.slice()) {
       if (!obj.isPlayer && !obj.isUI) {
         this.scene.remove(obj);
@@ -321,27 +314,27 @@ const GameManager = {
     }
     this.setState('warp');
     this.starfield.warpTime = 200;
+    */
   },
 
   startLevel() {
     this.setState("playing");
+    /*
     const level = LevelData[this.level];
     if (!level) {
       this.winGame();
       return;
     }
     this.player.origin.set(this.player.recallPos);
-    this.player.comms.clear();
-    this.player.commsSeen.clear();
-    this.player.commsAnswered.clear();
     this.bounds = level.bounds;
     for (const def of level.objects) {
       const obj = new def.prefab(def.origin);
       Object.assign(obj, def.props);
       this.scene.add(obj);
     }
-    this.bgm.stop();
-    this.bgm.play();
+    */
+    //this.bgm.stop();
+    //this.bgm.play();
   },
 
   helpBack() {
@@ -358,15 +351,9 @@ const GameManager = {
     if (helpPage == 1) {
       ui.help1.show();
       ui.help2.hide();
-      ui.help3.hide();
     } else if (helpPage == 2) {
       ui.help1.hide();
       ui.help2.show();
-      ui.help3.hide();
-    } else if (helpPage == 3) {
-      ui.help1.hide();
-      ui.help2.hide();
-      ui.help3.show();
     } else {
       this.showTitle();
     }

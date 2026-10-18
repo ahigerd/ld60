@@ -1,78 +1,83 @@
 #pauseContainer {
+  z-index: 999;
   position: fixed;
   left: 40%;
   width: 20%;
   overflow: visible;
-  bottom: 2vmin;
+  bottom: 0.25cm;
   text-align: center;
 }
 #dpad {
+  z-index: 999;
   position: fixed;
-  left: 2vmin;
-  bottom: 2vmin;
-  width: 21vmin;
-  height: 21vmin;
+  left: 0.25cm;
+  bottom: 0.25cm;
+  width: 4.5cm;
+  height: 4.5cm;
   border: 1px solid black;
-  border-radius: 7vmin;
+  border-radius: 1.5cm;
 }
 .dpad div {
-  width: 7vmin;
-  height: 7vmin;
-  line-height: 7vmin;
+  width: 1.5cm;
+  height: 1.5cm;
+  line-height: 1.5cm;
   text-align: center;
   border: 1px solid black;
   margin: -1px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.5);
   color: black;
 }
 .dpad div.active {
   background-color: black;
-  color: white;
+  color: rgba(255, 255, 255, 0.5);
 }
 .dpad .up {
   position: absolute;
   top: 0;
-  left: 7vmin;
+  left: 1.5cm;
 }
 .dpad .left {
   position: absolute;
   left: 0;
-  top: 7vmin;
+  top: 1.5cm;
 }
 .dpad .right {
   position: absolute;
   right: 0;
-  top: 7vmin;
+  top: 1.5cm;
 }
 .dpad .down {
   position: absolute;
   bottom: 0;
-  left: 7vmin;
+  left: 1.5cm;
 }
 #buttons {
+  z-index: 999;
   position: fixed;
-  right: 2vmin;
-  bottom: 2vmin;
-  height: 7vmin;
+  right: 0.25cm;
+  bottom: 0.25cm;
+  height: 3cm;
 }
 .buttons .button, .pause .button {
   display: inline-block;
-  width: 7vmin;
-  height: 7vmin;
-  line-height: 7vmin;
+  width: 3cm;
+  height: 3cm;
+  line-height: 3cm;
   text-align: center;
   border: 1px solid black;
-  border-radius: 2vmin;
+  border-radius: 1cm;
   margin: -1px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.5);
   color: black;
 }
 .pause .button {
   width: auto;
-  padding: 0 2vmin;
+  padding: 0 0.5cm;
+  height: 1.5cm;
+  line-height: 1.5cm;
 }
 .buttons .button.active, .pause .button.active {
   background-color: black;
-  color: white;
+  color: rgba(255, 255, 255, 0.5);
 }
 

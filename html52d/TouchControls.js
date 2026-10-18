@@ -60,7 +60,7 @@ export class TouchControls extends EventTargetClass {
 
     // More modern browsers don't have the ontouchstart property but still report touch events
     // Enable touch events if we receive one
-    document.body.addEventListener('touchstart', () => this.touchEnabled = true, { once: true });
+    //document.body.addEventListener('touchstart', () => this.touchEnabled = true, { once: true });
   }
 
   addButton(container, className, label, key, id) {

@@ -8,28 +8,75 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
 </head>
 <body>
 <div id='fullscreen'>
-<div id='container'>
-  <div id='camera'></div>
-  <div id='commFrame'>
-    <div id='commPortraitFrame'>
-      <div id='commPortrait'>&nbsp;</div>
+<div id='container' style='display:none'>
+  <div id='camera'>
+    <div id='hud'>
+      <table width='100%' height='100%' cellspacing='0' cellpadding='0'>
+        <tr height='15%'>
+          <td></td>
+          <td width='10%'></td>
+          <td id='hudBrain'>
+            <br/>
+            BRAIN<br/>
+            <a class='warning'><div></div></a>
+          </td>
+          <td width='10%'></td>
+          <td></td>
+        </tr>
+        <tr height='15%'>
+          <td id='hudLeftShoulder' colspan='2'></td>
+          <td id='hudCockpit'>
+            <br/>
+            COCKPIT<br/>
+            <div class='warning'><div></div></div>
+          </td>
+          <td id='hudRightShoulder' colspan='2'></td>
+        </tr>
+        <tr height='15%'>
+          <td id='hudLeftArm'>
+            LEFT<br/>
+            ARM<br/>
+            <div class='warning'><div></div></div>
+          </td>
+          <td style='border-top: 3px solid black'></td>
+          <td id='hudBoiler'>
+            <br/>
+            BOILER<br/>
+            <div class='warning'><div></div></div>
+          </td>
+          <td style='border-top: 3px solid black'></td>
+          <td id='hudRightArm'>
+            RIGHT<br/>
+            ARM<br/>
+            <div class='warning'><div></div></div>
+          </td>
+        </tr>
+        <tr height='25%'>
+          <td id='hudLeftArm2'></td>
+          <td></td>
+          <td id='hudCargo'>
+            <br/>
+            CARGO<br/>
+            <div class='warning'><div></div></div>
+          </td>
+          <td></td>
+          <td id='hudRightArm2'></td>
+        </tr>
+        <tr height='25%'>
+          <td></td>
+          <td id='hudLocomotion' colspan='3'>
+            LOCOMOTION<br/>
+            <div class='warning'><div></div></div>
+          </td>
+          <td></td>
+        </tr>
+      </table>
     </div>
-    <div id='commText'>&nbsp;</div>
-    <span id='commContinue' style='display:none'>&LeftTriangle;</span>
-  </div>
-  <div id='loading'>
-    <div class='animate'>Loading...</div>
-    <div id='progress'>0%</div>
   </div>
   <div id='splash'>
-    <h1>Network Bridge</h1>
+    <h1>Untitled</h1>
     <div class='splashText'>
-      The invading Magnetar Army has sent out advance forces to sabotage the interstellar relay network! Transmission signals
-      have been limited, blocking warp travel through the galaxy. Travel to the four quadrants of the galaxy to destroy the
-      invaders and reactivate the relay stations!<br/><br/>
-
-      Some members of the resistance survived the Magnetar assault. Rescue them from their damaged ships and they will aid
-      you in your mission!<br/><br/>
+      TODO<br/><br/>
 
       <div style='text-align: center; font-size: 70%'>Keyboard and touch controls available. Press Help for more information.</div>
     </div>
@@ -66,50 +113,14 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
           <td><span class='keyboard'>Z</span></td>
           <td><span class='touch'>Fire</span></td>
         </tr>
-        <tr><td>Signal</td>
-          <td><span class='keyboard'>M</span></td>
-          <td><span class='keyboard'>X</span></td>
-          <td><span class='touch comm'>Comm</span></td>
-        </tr>
         <tr><td>Pause</td>
           <td colspan='2'><span class='keyboard' style='padding: 2px 8px'>Escape</span></td>
           <td><span class='touch'>Pause</span></td>
         </tr>
       </table>
       <ul style='font-size: 20px;text-align:left;display:none' id='help2'>
-        <img style='float:right;height:25vh' src='help-radar.png' />
-        <li>Destroy all enemies near relay stations before docking</li>
-        <li>Rescue pilots from damaged ships for powerups and repairs</li>
-        <li>Ship is lost when signal strength reaches zero</li>
-        <li>Radar shows enemies, damaged ships, and relay stations</li>
-        <li>Relay stations and damaged ships are highlighted</li>
-        <li><img src='help-health.png' /> Current signal strength</li>
-        <li><img src='help-lives.png' /> Extra lives remaining</li>
-        <li><img src='help-comm.png' /> Signal available (<img src='help-comm-replay.png' /> already seen)</li>
+        <li>TODO</li>
       </ul>
-      <div style='font-size: 20px;text-align:left;display:none' id='help3'>
-        <center style='font-size: 200%;padding-bottom: 10px;font-weight:bold'>Strategies</center>
-        <table align='center'>
-          <tr><td width='50%'>
-              <img src='help-mine.png' /> <b>Magnetic Mine</b><br/><br/>
-              Follows you. Lead it away,<br/>then turn around and fire!
-          </td><td width='50%'>
-              <img src='help-turret.png' /> <b>Patrol Cannon</b><br/><br/>
-              Moves, then attacks.<br/>Watch its pattern and find an opening!
-          </tr>
-          <tr><td width='50%'>
-              <img src='help-laser.png' /> <b>Laser Turret</b><br/><br/>
-              Locks on with a laser.<br/>
-              Stay out of its range!
-          </td><td width='50%'>
-              <img src='assets/relay.png' style='float:left' />
-              <div style='display:inline-block'>
-                <b>Relay Station</b><br/><br/>
-                Defeat all nearby enemies,<br/>then touch to activate.
-              </div>
-          </tr>
-        </table>
-      </div>
     </div>
     <a id='helpBackButton' class='bigbutton help'>&lt; Back</a>
     <a id='helpNextButton' class='bigbutton help'>Next &gt;</a>
@@ -126,24 +137,23 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
       <div id='gameOverWin'>
         <h2><u>Victory!</u></h2>
         <div style='font-size: 20pt'>
-          You have reconnected the galactic relay network<br/>
-          and achieved victory over the Magnetar Army!
+          TODO
         </div>
       </div>
       <div id='gameOverLose'>
         <h2><u>Game Over</u></h2>
       </div>
-      <table align='center'>
-        <tr><td><b>Relay Stations Activated:</b></td><td><span id='gameOverLevel'>0</span> / 4</td></tr>
-        <tr><td><b>Escape Pods Rescued:</b></td><td><span id='gameOverPods'>0</span> / 10</td></tr>
-      </table>
       <a id='gameOverStartButton' class='bigbutton start'>Return to Title</a>
     </div>
   </div>
 </div>
-<div id='dpad'></div>
-<div id='buttons'></div>
-<div id='pauseContainer'></div>
+<div id='loading'>
+  <div class='animate'>Loading...</div>
+  <div id='progress'>0%</div>
+</div>
+<div id='dpad' style='display:none'></div>
+<div id='buttons' style='display:none'></div>
+<div id='pauseContainer' style='display:none'></div>
 <script>
 (function() {
   const script = document.createElement('SCRIPT');
