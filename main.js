@@ -26,6 +26,9 @@ for (let factor = 1; factor <= 6; factor++) {
     SvgAsset {
       zoom: ${factor / 2};
     }
+    .plate {
+      font-size: ${10 * factor}px;
+    }
     #container {
       left: calc(50% - ${minWidth / 2}px);
       top: calc(50% - ${minHeight / 2}px);
@@ -37,7 +40,7 @@ for (let factor = 1; factor <= 6; factor++) {
     }
     .splashText { font-size: ${minHeight / 25}px }
     .popover { line-height: 50vh } /*${minHeight / 2}px }*/
-    #hud td {
+    #hud > div {
       font-size: ${10 * factor}px;
     }
     h1 {

@@ -11,73 +11,50 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
 <div id='container' style='display:none'>
   <div id='camera'>
     <div id='hud'>
-      <table width='100%' height='100%' cellspacing='0' cellpadding='0'>
-        <tr height='15%'>
-          <td></td>
-          <td width='10%'></td>
-          <td id='hudBrain'>
-            <br/>
-            BRAIN<br/>
-            <div class='warning' id='toBrain'><div></div></div>
-          </td>
-          <td width='10%'></td>
-          <td></td>
-        </tr>
-        <tr height='15%'>
-          <td id='hudLeftShoulder' colspan='2'></td>
-          <td id='hudCockpit'>
-            <br/>
-            COCKPIT<br/>
-            <div class='warning' id='toCockpit'><div></div></div>
-          </td>
-          <td id='hudRightShoulder' colspan='2'></td>
-        </tr>
-        <tr height='15%'>
-          <td id='hudLeftArm'>
-            LEFT<br/>
-            ARM<br/>
-            <div class='warning' id='toLeft'><div></div></div>
-          </td>
-          <td style='border-top: 3px solid black'></td>
-          <td id='hudBoiler'>
-            <br/>
-            BOILER<br/>
-            <div class='warning' id='toBoiler'><div></div></div>
-          </td>
-          <td style='border-top: 3px solid black'></td>
-          <td id='hudRightArm'>
-            RIGHT<br/>
-            ARM<br/>
-            <div class='warning' id='toRight'><div></div></div>
-          </td>
-        </tr>
-        <tr height='25%'>
-          <td id='hudLeftArm2'></td>
-          <td></td>
-          <td id='hudCargo'>
-            <br/>
-            CARGO<br/>
-            <div class='warning' id='toCargo'><div></div></div>
-          </td>
-          <td></td>
-          <td id='hudRightArm2'></td>
-        </tr>
-        <tr height='25%'>
-          <td></td>
-          <td id='hudLocomotion' colspan='3'>
-            LOCOMOTION<br/>
-            <div class='warning' id='toLocomotion'><div></div></div>
-          </td>
-          <td></td>
-        </tr>
-      </table>
+      <div id='hudBrain'>
+        BRAIN<br/>
+        <div class='warning' id='toBrain'><div></div></div>
+      </div><br/>
+      <div id='hudCockpit'>
+        COCKPIT<br/>
+        <div class='warning' id='toCockpit'><div></div></div>
+      </div><br/>
+      <div id='hudBoiler'>
+        BOILER<br/>
+        <div class='warning' id='toBoiler'><div></div></div>
+      </div><br/>
+      <div id='hudCargo'>
+        CARGO<br/>
+        <div class='warning' id='toCargo'><div></div></div>
+      </div><br/>
+      <div id='hudLocomotion'>
+        LOCOMOTION<br/>
+        <div class='warning' id='toLocomotion'><div></div></div>
+      </div>
     </div>
     <div class='panel' id='panelBrain'>
-      <table class='plate' cellspacing='0'>
-        <tr><td class='label'>BRAIN</td><td class='scallop'></td></tr>
-        <tr><td class='scallop'></td><td></td></tr>
-      </table>
+      <div class='plate'><div class='label'>BRAIN</div></div>
       <div class='brainBox'>
+        <table cellspacing='0' cellpadding='0'>
+          <tr>
+            <td><SvgAsset data-asset='tube' class='unlit'></SvgAsset></td>
+            <td><SvgAsset data-asset='tube' class='unlit'></SvgAsset></td>
+            <td><SvgAsset data-asset='tube' class='unlit'></SvgAsset></td>
+          </tr>
+          <tr>
+            <td colspan='3'><SvgAsset data-asset='harness'></SvgAsset></td>
+          </tr>
+        </table>
+        <table cellspacing='0' cellpadding='0'>
+          <tr>
+            <td><SvgAsset data-asset='tube' class='unlit'></SvgAsset></td>
+            <td><SvgAsset data-asset='tube' class='unlit'></SvgAsset></td>
+            <td><SvgAsset data-asset='tube' class='unlit'></SvgAsset></td>
+          </tr>
+          <tr>
+            <td colspan='3'><SvgAsset data-asset='harness'></SvgAsset></td>
+          </tr>
+        </table>
         <table cellspacing='0' cellpadding='0'>
           <tr>
             <td><SvgAsset data-asset='tube' class='unlit'></SvgAsset></td>
@@ -142,40 +119,16 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
     </div>
     <div class='panel' id='panelCockpit'>
       <canvas id='clock' width='200' height='200'></canvas>
-      <table class='plate' cellspacing='0'>
-        <tr><td class='label'>COCKPIT</td><td class='scallop'></td></tr>
-        <tr><td class='scallop'></td><td></td></tr>
-      </table>
+      <div class='plate'><div class='label'>COCKPIT</div></div>
     </div>
     <div class='panel' id='panelBoiler'>
-      <table class='plate' cellspacing='0'>
-        <tr><td class='label'>BOILER</td><td class='scallop'></td></tr>
-        <tr><td class='scallop'></td><td></td></tr>
-      </table>
-    </div>
-    <div class='panel' id='panelLeft'>
-      <table class='plate' cellspacing='0'>
-        <tr><td class='label'>LEFT ARM</td><td class='scallop'></td></tr>
-        <tr><td class='scallop'></td><td></td></tr>
-      </table>
-    </div>
-    <div class='panel' id='panelRight'>
-      <table class='plate' cellspacing='0'>
-        <tr><td class='label'>RIGHT ARM</td><td class='scallop'></td></tr>
-        <tr><td class='scallop'></td><td></td></tr>
-      </table>
+      <div class='plate'><div class='label'>BOILER</div></div>
     </div>
     <div class='panel' id='panelCargo'>
-      <table class='plate' cellspacing='0'>
-        <tr><td class='label'>CARGO</td><td class='scallop'></td></tr>
-        <tr><td class='scallop'></td><td></td></tr>
-      </table>
+      <div class='plate'><div class='label'>CARGO</div></div>
     </div>
     <div class='panel' id='panelLocomotion'>
-      <table class='plate' cellspacing='0'>
-        <tr><td class='label'>LOCOMOTION</td><td class='scallop'></td></tr>
-        <tr><td class='scallop'></td><td></td></tr>
-      </table>
+      <div class='plate'><div class='label'>LOCOMOTION</div></div>
     </div>
   </div>
   <div id='splash'>
