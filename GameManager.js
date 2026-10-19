@@ -48,7 +48,7 @@ const GameManager = {
 
   init(assets) {
     try {
-      this.disableFullscreen = localStorage.enableFullscreen === '0';
+      this.disableFullscreen = true;// localStorage.enableFullscreen === '0';
     } catch (e) {
       console.error(e);
     }

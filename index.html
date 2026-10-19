@@ -128,11 +128,38 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
       <div class='plate'><div class='label'>COCKPIT</div></div>
     </div>
     <div class='panel' id='panelBoiler'>
+      <table width='100%' style='margin-top:50px'>
+        <tr>
+          <td width='30%' align='right'>Fuel:</td>
+          <td width='40%' id='fuel'>100</td>
+          <td width='30%' id='fuelRefill'>Refill</td>
+          <td rowspan='2' width='0'>
+            <canvas data-tui-class='Gauge' data-label='PRESSURE' id='boilerPressure'></canvas>
+          </td>
+        </tr><tr>
+          <td width='30%' align='right'>Pipe 1:</td>
+          <td width='40%' id='pipe1status'>OK</td>
+          <td width='30%' id='pipe1repair'>Repair</td>
+        </tr><tr>
+          <td width='30%' align='right'>Pipe 2:</td>
+          <td width='40%' id='pipe2status'>OK</td>
+          <td width='30%' id='pipe2repair'>Repair</td>
+          <td rowspan='2' width='0'>
+            <canvas data-tui-class='Gauge' data-label='TEMPERATURE' id='boilerTemp'></canvas>
+          </td>
+        </tr><tr>
+          <td width='30%' align='right'>Pipe 3:</td>
+          <td width='40%' id='pipe3status'>OK</td>
+          <td width='30%' id='pipe3repair'>Repair</td>
+        </tr>
+      </table>
       <div class='plate'><div class='label'>BOILER</div></div>
     </div>
+    <!--
     <div class='panel' id='panelLocomotion'>
       <div class='plate'><div class='label'>LOCOMOTION</div></div>
     </div>
+    -->
   </div>
   <div id='splash'>
     <h1>Antiques Mech Show</h1>
@@ -146,7 +173,7 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
     <a id='startButton' class='bigbutton start'>Start Game</a>
     <a id='easyButton' class='bigbutton easy' style='display:none'>Easy Mode</a>
     <a id='helpButton' class='bigbutton help'>Help</a><br/>
-    <label for='enableFullscreen' style='font-size:150%'><input id='enableFullscreen' type='checkbox'> Fullscreen</label>
+    <label for='enableFullscreen' style='display:none'><input id='enableFullscreen' type='checkbox'> Fullscreen</label>
   </div>
   <div id='helppage'>
     <h1>How to Play</h1>
@@ -164,6 +191,11 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
           <li>Overloaded systems increase the risk of damage.</li>
           <li>The museum closes at 9:00. Watch the clock!</li>
         </ul></td></tr>
+        <tr><td valign='top' colspan='2'><ul style='margin-top:1em;text-align:left'>
+          <li>The boiler must be brought up to pressure for the robot to start moving.</li>
+          <li>Steam leaks must be repaired before the boiler can hold pressure again.</li>
+          <li>Burned out vacuum tubes will cause erratic behavior.</li>
+        </ul></td></tr>
       </table>
     </div>
     <a id='helpBackButton' class='bigbutton help'>&lt; Back</a>
@@ -178,9 +210,11 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
   <div id='gameOver' class='popover'>
     <div style='text-align: center'>
       <div id='gameOverWin'>
-        <h2><u>Victory!</u></h2>
+        <h2><u>You Win!</u></h2>
         <div style='font-size: 20pt'>
-          TODO
+          Good work, pilot!<br/><br/>
+
+          You brought this remarkable specimen of old technology to the museum.
         </div>
       </div>
       <div id='gameOverLose'>

@@ -213,11 +213,16 @@ export default class Progress extends Sprite
     };
     this._storedRotation = {};
     this.pressure = 0;
+    this.fuel = 100;
+    this.refueling = false;
+    this.leaks = 0;
+    this.leaking = [false, false, false];
+    this.leakTicks = 0;
     this.temperature = 0;
     this.speed = 0;
     this.renderSpeed = 0;
     this.timeOfDay = 0;
-    this.lengthOfDay = 120000;
+    this.lengthOfDay = 60000;
     this.reversing = false;
     this.reverseTick = 0;
     this.walkAccel = 0;
@@ -333,23 +338,71 @@ export default class Progress extends Sprite
       GameManager.gameOver();
       return;
     }
+    if (this.body.origin.x >= 49) {
+      GameManager.winGame();
+      return;
+    }
 
-    if (this.temperature < this.throttle * 100) {
+    let throttle = this.throttle;
+
+    this.fuel -= (throttle + .005) * ms * .01;
+    if (this.fuel < 0) this.fuel = 0;
+    if (this.refueling) {
+      this.fuel += ms * .05;
+      if (this.fuel >= 100) {
+        this.fuel = 100;
+        this.refueling = false;
+      }
+    }
+    if (this.fuel <= 0) {
+      throttle = 0;
+    }
+    if (throttle <= 0) {
+      this.walkAccel = 0;
+    }
+
+    if (this.temperature < throttle * 100) {
       this.temperature += ms * .05;
       if (this.temperature < 0) this.temperature = 0;
-    } else if (this.temperature > this.throttle * 100) {
+    } else if (this.temperature > throttle * 100) {
       this.temperature -= ms * .05;
     }
 
+    if (this.pressure > 60) {
+      let risk = (this.pressure - 60) / 40 * ms / 16.6667;
+      risk *= risk * risk * risk;
+      if (Math.random() < risk) {
+        this.leakTicks++;
+        if (this.leakTicks > 5 * (this.leaks + 1)) {
+          if (this.leaks < 3) {
+            console.log('leak', this.leaks);
+            this.leaks++;
+            while (true) {
+              const index = (Math.random() * this.leaking.length)|0;
+              if (!this.leaking[index]) {
+                this.leaking[index] = true;
+                break;
+              }
+            }
+          }
+          this.leakTicks = 0;
+        }
+      }
+    }
+
+    if (this.leaks > 0) {
+      this.pressure = Math.max(0, this.pressure - ms * this.leaks * .015);
+    }
+
     this.stateTimer = (this.stateTimer || 0) + ms;
-    if (this.throttle == 0) {
+    if (throttle == 0 || this.pressure <= 0 || this.fuel <= 0) {
       this.setAnimState(State.Standing);
-    } else if (this.state == State.Standing) {
+    } else if (this.state == State.Standing && this.pressure > 15) {
       this.setAnimState(State.Walking);
-    } else if (this.state == State.Running && this.throttle < 0.5) {
+    } else if (this.state == State.Running && (throttle < 0.3 || brain.brainDamage())) {
       this.setAnimState(State.Walking);
     }
-    let targetSpeed = this.targetSpeed * Math.min(1, this.throttle * 2);
+    let targetSpeed = this.targetSpeed * Math.min(1, throttle * 2);
     if (this.speed < targetSpeed) {
       this.pressure -= ms * .1;
       if (this.pressure <= 0) {
@@ -371,14 +424,15 @@ export default class Progress extends Sprite
     }
     if (this.state == State.Standing) {
       if (this.pressure < 5) {
-        this.pressure += ms * .01;
+        this.pressure += ms * (.01 + .2 * throttle);
       } else {
-        this.pressure -= ms * .02;
+        this.pressure += ms * (-.02 + .03 * throttle);
       }
+      if (this.pressure < 0) this.pressure = 0;
     } else {
       this.pressure += this.temperature * .0001 * ms;
-      if (this.pressure > 103) this.pressure = 100;
     }
+    if (this.pressure > 103) this.pressure = 100;
 
     this.renderSpeed = this.speed * 10000 + Math.sqrt(Math.random()) * (Math.random() < 0.5 ? -0.5 : 0.5) * Math.sqrt(this.speed * 1000);
     if (this.speed == 0)
@@ -392,8 +446,8 @@ export default class Progress extends Sprite
       this.walkAccel = 0;
     } else if (this.state == State.Walking && !(brain && brain.brainDamage())) {
       this.walkAccel += ms;
-      if (this.speed >= targetSpeed && this.throttle > .5) {
-        this.walkAccel += ms * (this.throttle - .5) * 2;
+      if (this.speed >= targetSpeed && throttle > .5) {
+        this.walkAccel += ms * (throttle - .5) * 2;
       }
       if (this.walkAccel >= 5000) {
         this.setAnimState(State.Running);

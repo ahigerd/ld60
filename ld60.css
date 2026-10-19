@@ -200,6 +200,10 @@ canvas, img {
 .bigbutton.help {
   background: linear-gradient(rgb(255, 255, 128), rgb(128, 128, 0));
 }
+#helppage .bigbutton.help {
+  height: 3em;
+  line-height: 2em;
+}
 .bigbutton.start:active {
   background: linear-gradient(rgb(32, 128, 32), rgb(100, 192, 100));
 }
@@ -523,4 +527,37 @@ SvgAsset {
 #help1 { font-size: 24px }
 .warning, #clock, .tui-Gauge {
   zoom: 2;
+}
+
+#panelBoiler td {
+  padding: 8px;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+#fuel {
+  text-align: center;
+}
+
+#pipe1status, #pipe2status, #pipe3status {
+  background-color: #008000;
+  text-align: center;
+}
+
+#pipe1status.leak, #pipe2status.leak, #pipe3status.leak {
+  background-color: #800000;
+  text-align: center;
+  background-image: radial-gradient(50% 50%, rgb(255, 220, 60) 0%, rgb(255, 180, 40) 20%, rgb(180, 0, 0) 60%, rgb(128, 0, 0) 150%);
+}
+
+#fuelRefill, #pipe1repair, #pipe2repair, #pipe3repair {
+  border: 4px outset #c08040;
+  background: darkgoldenrod;
+  text-align: center;
+}
+
+#fuelRefill:active, #pipe1repair:active, #pipe2repair:active, #pipe3repair:active {
+  border: 8px inset #c08040;
+  border-right: none;
+  border-bottom: none;
 }

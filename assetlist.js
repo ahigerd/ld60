@@ -10,6 +10,7 @@ export default {
     map: 'assets/map.js',
     brain: 'assets/brain.js',
     cockpit: 'assets/cockpit.js',
+    boiler: 'assets/boiler.js',
   },
   data: {
     tube: 'assets/tube.svg',
