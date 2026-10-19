@@ -228,6 +228,7 @@ const GameManager = {
     Object.assign(this, initialState);
     this.setState('playing');
     this.engine.start();
+    this.engine.dispatchEvent('newGame', null);
   },
 
   tick() {
@@ -235,6 +236,7 @@ const GameManager = {
 
   onPause() {
     //this.bgm.pause();
+    document.body.classList.add('paused');
     if (this.isPlaying && state == "playing") {
       this.exitFullscreen();
       ui.pauseBox.show();
@@ -245,6 +247,7 @@ const GameManager = {
 
   onStart() {
     ui.pauseBox.hide();
+    document.body.classList.remove('paused');
     if (this.touchControls.touchEnabled) {
       this.touchControls.hidden = false;
       ui.fullscreen.classList.add('touch');

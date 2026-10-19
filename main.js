@@ -23,6 +23,9 @@ for (let factor = 1; factor <= 6; factor++) {
     .warning {
       zoom: ${factor};
     }
+    SvgAsset {
+      zoom: ${factor / 2};
+    }
     #container {
       left: calc(50% - ${minWidth / 2}px);
       top: calc(50% - ${minHeight / 2}px);

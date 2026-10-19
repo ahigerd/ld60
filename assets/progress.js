@@ -371,6 +371,7 @@ export default class Progress extends Sprite
   render(camera)
   {
     const layer = camera.layers[this.layer];
+
     layer.strokeStyle = 'red';
     layer.fillStyle = '#80b0e0';
     layer.beginPath();

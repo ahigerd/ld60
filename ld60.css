@@ -170,7 +170,7 @@ canvas, img {
 }
 
 #camera canvas:first-of-type {
-  background-color: #404040;
+  background-color: #000000;
 }
 
 .bigbutton {
@@ -506,12 +506,12 @@ body.comms #dpad {
   background-image: radial-gradient(50% 50%, rgb(180, 0, 0) 0%, rgb(64, 0, 0) 150%);
 }
 
-.warning.lit {
+.warning.lit, body:not(.paused) .warning:active {
   border: 2px outset #ff0000;
   background-image: radial-gradient(50% 50%, rgb(255, 220, 60) 0%, rgb(255, 180, 40) 20%, rgb(180, 0, 0) 60%, rgb(128, 0, 0) 150%);
 }
 
-.warning:active {
+body:not(.paused) .warning:active {
   border-top: 3px solid #400000;
   border-left: 3px solid #400000;
   border-right: none;
@@ -530,7 +530,7 @@ body.comms #dpad {
   opacity: 0.2;
 }
 
-.warning.lit > div {
+.warning.lit > div, body:not(.paused) .warning:active > div {
   background-image: conic-gradient(from -45deg, #ffc080 0deg, #400000 360deg);
   opacity: 0.3;
 }
@@ -589,4 +589,93 @@ body.comms #dpad {
   border: 3px solid black;
   border-radius: 20%;
   vertical-align: middle !important;
+}
+
+.panel {
+  transition: opacity 0.75s ease-in-out;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 22.3%;
+  width: 60%;
+  z-index: 10;
+  padding: 20px;
+  background-color: #5c4305;
+  border-right: 8px solid black;
+  color: white;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.plate {
+  position: absolute;
+  width: 200px;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+
+.plate .label {
+  border-top: 12px solid darkgoldenrod;
+  border-left: 12px solid darkgoldenrod;
+  border-right: 8px solid darkgoldenrod;
+  border-bottom: 8px solid darkgoldenrod;
+  text-align: center;
+  padding: 5px;
+  background: white;
+  color: black;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.plate .scallop {
+  background: darkgoldenrod;
+  border-bottom-right-radius: 10px 10px;
+  height: 10px;
+  min-width: 10px;
+}
+
+SvgAsset {
+  display: inline-block;
+}
+
+.dyn {
+  visibility: hidden;
+}
+
+.lit .lit, .unlit .unlit, .dead .dead {
+  visibility: visible;
+}
+
+.changing {
+  opacity: 0;
+}
+
+#panelBrain {
+  text-align: center;
+}
+
+.brainBox {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+.brainBox table {
+  display: inline-block;
+  padding: 4px;
+  border-left: 8px solid #402000;
+  border-top: 8px solid #402000;
+  border-right: 8px solid #502800;
+  border-bottom: 8px solid #502800;
+  z-index: 10;
+  background: linear-gradient(#301800, #100800);
+}
+
+#panelBrain td {
+  text-align: center;
 }

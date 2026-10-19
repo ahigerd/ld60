@@ -1,9 +1,19 @@
-/*
-import Inventory, { InventoryUI } from './Inventory.js';
-import Station from './Station.js';
-import Computer from './Computer.js';
-*/
 import ThinUI from './thinui.js';
+import assets from './assets.js';
+
+class SvgAsset extends ThinUI.ThinUIComponent {
+  constructor(props, root = null) {
+    super(props, root);
+    assets.data[props.asset].then(this._setSvg.bind(this));
+  }
+
+  _setSvg(svg) {
+    const parser = new DOMParser();
+    const el = parser.parseFromString(svg, "image/svg+xml").documentElement;
+    this.root.appendChild(el);
+  }
+}
+ThinUI.register(SvgAsset);
 
 const ui = ThinUI.init(document.body);
 window.ui = ui;
@@ -23,28 +33,6 @@ ui.refineStation.hide();
 ui.computer = new Computer();
 //ui.computer.appendTo(ui.stationBox);
 ui.computer.hide();
-*/
-
-/*
-window.setTimeout(() => {
-  ui.computer.show();
-  ui.stationBox.show();
-}, 1000);
-*/
-
-/*
-const inventoryUI = new InventoryUI();
-ui.inventoryUI = inventoryUI;
-inventoryUI.inventory = inventory;
-inventoryUI.appendTo(ui.inventoryBox);
-
-inventory.addEventListener('updated', event => {
-  ui.chemStation.onInventoryUpdate(event.detail)
-  ui.workStation.onInventoryUpdate(event.detail)
-  ui.refineStation.onInventoryUpdate(event.detail)
-  ui.oxygen.root.innerText = inventory.contents['O2'] || 0;
-  inventoryUI.update();
-});
 */
 
 export default ui;

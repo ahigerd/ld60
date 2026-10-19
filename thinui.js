@@ -197,6 +197,7 @@ function makeUIClass(root, id, impl = null) {
 
 export function register(cls) {
   implClasses[cls.name] = cls;
+  implClasses[cls.name.toUpperCase()] = cls;
   if (!ThinUI[cls.name]) {
     ThinUI[cls.name] = cls;
   }
@@ -221,8 +222,12 @@ export function init(root, id) {
     id = 'document.body';
   }
 
-  for (const child of root.querySelectorAll('ThinUI,[data-tui-class]')) {
-    const tuiClass = child.dataset.tuiClass && (ThinUI[child.dataset.tuiClass] || implClasses[child.dataset.tuiClass]);
+  const selectors = ['ThinUI', '[data-tui-class]', ...Object.keys(implClasses)];
+  for (const child of root.querySelectorAll(selectors.join(','))) {
+    let tuiClass = child.dataset.tuiClass && (ThinUI[child.dataset.tuiClass] || implClasses[child.dataset.tuiClass]);
+    if (!tuiClass) {
+      tuiClass = implClasses[child.tagName];
+    }
     if (!tuiClass) {
       console.error(`Unknown ThinUI element ${child.dataset.tuiClass || '(missing)'} in ${id || 'fromHtml'}`);
       continue;
@@ -246,8 +251,12 @@ export function init(root, id) {
     } else {
       widget = new tuiClass(props, child);
     }
-    widget.root.setAttribute('id', child.id);
-    widget.root.dataset.tuiClass = child.dataset.tuiClass;
+    if (child.id) {
+      widget.root.setAttribute('id', child.id);
+    } else {
+      widget.root.removeAttribute('id');
+    }
+    widget.root.dataset.tuiClass = tuiClass.name;
     if (widget && widget.root && widget.root.getAttribute('id')) {
       children[widget.root.getAttribute('id')] = widget;
     }
