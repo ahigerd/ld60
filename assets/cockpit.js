@@ -5,6 +5,9 @@ const ctx = ui.clock.root.getContext('2d');
 
 function tick(timestamp)
 {
+  if (!ui.panelCockpit.isVisible)
+    return;
+
   ctx.strokeStyle = '#000000';
   ctx.lineWidth = 1.0;
   ctx.fillStyle = '#ffffff';
@@ -53,6 +56,12 @@ function tick(timestamp)
   ctx.beginPath();
   ctx.ellipse(100, 100, 4, 4, 0, 0, Math.PI * 2);
   ctx.fill();
+
+  ui.cockpitPressure.render();
+  ui.cockpitTemp.render();
+
+  ui.cockpitSpeed.value = GameManager.player.renderSpeed;
+  ui.cockpitSpeed.render();
 }
 
 /*

@@ -213,6 +213,7 @@ export default class Progress extends Sprite
     };
     this._storedRotation = {};
     this.speed = 0;
+    this.renderSpeed = 0;
     this.timeOfDay = 0;
     this.lengthOfDay = 120000;
     this.reversing = false;
@@ -337,9 +338,13 @@ export default class Progress extends Sprite
     } else if (this.speed > this.targetSpeed) {
       this.speed = Math.max(this.targetSpeed, this.speed - ms * 0.000005);
     }
+    this.renderSpeed = this.speed * 10000 + Math.sqrt(Math.random()) * (Math.random() < 0.5 ? -0.5 : 0.5) * Math.sqrt(this.speed * 1000);
     if (this.speed == 0)
       return;
     this.body.origin.x += this.speed * ms * (this.reversing > 0 ? -0.1 : 0.5);
+    if (this.reversing > 0) {
+      this.renderSpeed -= this.reversing * .05;
+    }
     if (this.state == State.Running && brain && brain.brainDamage()) {
       this.setAnimState(State.Walking);
       this.walkAccel = 0;
