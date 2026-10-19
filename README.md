@@ -1,59 +1,39 @@
-## Ludum Dare 59
+## Ludum Dare 60
 
-**Theme:** Signal
-**Team:** Adam Higerd, Ginny Higerd, Jason Higerd
+**Theme:** Old Tech
 
-# Network Bridge
+**Team:** Adam Higerd
 
-![Splash](splash.png)
+# Antiques Mech Show
 
-## Reconnect the Galaxy!
+![](splash.png)
 
-The invading Magnetar Army has sent out advance forces to sabotage the interstellar relay network! Transmission signals have been limited, blocking warp travel through the galaxy. Travel to the four quadrants of the galaxy to destroy the invaders and reactivate the relay stations!
+You discovered a really old giant robot! The body is still in good shape, but the internals need a lot of work. If you can get it to the museum before it closes at 9:00 PM, you can see about getting it restored!
 
-Some members of the resistance survived the Magnetar assault. Rescue them from their damaged ships and they will aid you in your mission!
+However: The only way to get it there is to pilot it! You're going to have to keep an eye on all of its systems and repair whatever breaks along the way if you want to make it in time!
 
-![preview.png](preview.png)
+## Controls
 
------
+* Use a mouse or touchpad to click on buttons and broken parts.
+* Drag the handle to control the throttle.
+* Click the buttons on the left side to move between areas.
 
-### Controls
+## Robot Operating Guide
 
-* Arrow Keys / WASD: Move
-* Z / Space: Fire
-* X / M: Listen to an incoming signal
-* Escape: Pause
+* An illuminated button warns of a failed part.
+* Click on a broken part to repair it.
+* The robot will run if everything is kept repaired.
+* The robot will malfunction if parts are damaged.
+* Overloaded systems increase the risk of damage.
+* The museum closes at 9:00. Watch the clock!
+* Heating the boiler requires fuel. Opening the throttle wider uses more fuel.
+* The boiler must be brought up to pressure for the robot to start moving.
+* Steam leaks must be repaired before the boiler can hold pressure again.
+* Burned out vacuum tubes will cause erratic behavior.
 
-Touch controls are also supported. (_Note: Please use a landscape view. Portrait layout doesn't work right._)
+## License
 
------
-
-### Instructions
-
-* Destroy all enemies near relay stations before docking
-* Rescue pilots from damaged ships for powerups and repairs
-* Ship is lost when signal strength reaches zero
-* Radar shows enemies, damaged ships, and relay stations
-* Relay stations and damaged ships are highlighted
-
-See the Help screen in-game for a description of the HUD elements.
-
------
-
-### Strategies
-
-* **Magnetic Mines:** Drifts toward your ship if you get close. Lead it away and then turn around to blast it!
-* **Patrol Cannon:** Alternates between moving and attacking. It has a predictable pattern, so watch it and find an opening!
-* **Laser Turret:** Uses a targeting laser to lock on, then fires a shot when fully charged. It has limited range, so shoot it down from a distance!
-* **Relay Stations:** Dock with a relay station to activate it, but all nearby enemies must be destroyed first.
-
------
-
-### License
-
-Software, sound, and music copyright (c) 2026 Adam Higerd
-
-Graphics copyright (c) 2026 Adam Higerd, Ginny Higerd, and Jason Higerd
+Software and graphics copyright (c) 2026 Adam Higerd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
