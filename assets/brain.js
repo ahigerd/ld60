@@ -27,13 +27,13 @@ function update()
     return;
   }
   for (const light of lights) {
-    if (light.classList.contains('dead')) {
+    if (light.svgClass.contains('dead')) {
       continue;
     }
     if (Math.random() < 0.75)
       continue;
-    light.classList.toggle('lit');
-    light.classList.toggle('unlit');
+    light.svgClass.toggle('lit');
+    light.svgClass.toggle('unlit');
   }
 }
 
@@ -51,28 +51,28 @@ function tick(ts)
     return;
   }
   let light = null;
-  while (!light || light.classList.contains('dead')) {
+  while (!light || light.svgClass.contains('dead')) {
     light = lights[(Math.random() * lights.length)|0];
   }
   ++blown;
   console.log("boom");
-  light.classList.remove('lit');
-  light.classList.remove('unlit');
-  light.classList.add('dead');
+  light.svgClass.remove('lit');
+  light.svgClass.remove('unlit');
+  light.svgClass.add('dead');
   // TODO: sfx
   nextBlow = null;
 }
 
 function onClick(light)
 {
-  if (!light.classList.contains('dead')) {
+  if (!light.svgClass.contains('dead')) {
     return;
   }
-  light.classList.add('changing');
+  light.svgClass.add('changing');
   window.setTimeout(() => {
-    light.classList.remove('changing');
-    light.classList.remove('dead');
-    light.classList.add('unlit');
+    light.svgClass.remove('changing');
+    light.svgClass.remove('dead');
+    light.svgClass.add('unlit');
     // TODO: sfx
     --blown;
     if (blown <= 0) {
@@ -97,13 +97,14 @@ GameManager.engine.addEventListener('newGame', () => {
     lights = [...ui.panelBrain.root.querySelectorAll('SvgAsset[data-asset=tube]')].map(el => el.tui);
     for (const light of lights) {
       const ref = light;
+      light.svgClass = light.shadow.querySelector('svg').classList;
       light.addEventListener('click', onClick.bind(null, ref));
     }
   }
   for (const light of lights) {
-    light.classList.add('unlit');
-    light.classList.remove('lit');
-    light.classList.remove('dead');
+    light.svgClass.add('unlit');
+    light.svgClass.remove('lit');
+    light.svgClass.remove('dead');
   }
   blown = 0;
   nextBlow = null;

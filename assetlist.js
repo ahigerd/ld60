@@ -14,5 +14,7 @@ export default {
   data: {
     tube: 'assets/tube.svg',
     harness: 'assets/harness.svg',
+    throttle: 'assets/throttle.svg',
+    throttleHandle: 'assets/throttle-handle.svg',
   },
 };

@@ -2,7 +2,6 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, user-zoom=fixed" />
 <script type='text/javascript'>
-document.write(`<link rel="stylesheet" href="style_TouchControls.css?cb=${Math.random()}" />`);
 document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
 </script>
 </head>
@@ -22,10 +21,6 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
       <div id='hudBoiler'>
         BOILER<br/>
         <div class='warning' id='toBoiler'><div></div></div>
-      </div><br/>
-      <div id='hudCargo'>
-        CARGO<br/>
-        <div class='warning' id='toCargo'><div></div></div>
       </div><br/>
       <div id='hudLocomotion'>
         LOCOMOTION<br/>
@@ -119,13 +114,15 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
     </div>
     <div class='panel' id='panelCockpit'>
       <canvas id='clock' width='200' height='200'></canvas>
+      <canvas data-tui-class='Gauge' data-label='PRESSURE' id='cockpitPressure'></canvas>
+      <canvas data-tui-class='Gauge' data-label='TEMPERATURE' id='cockpitTemp'></canvas>
+      <canvas data-tui-class='Gauge' data-label='SPEED' id='cockpitSpeed'></canvas>
+      <SvgAsset class='cockpitThrottle' data-asset='throttle'></SvgAsset>
+      <SvgAsset class='throttleHandle' data-asset='throttleHandle'></SvgAsset>
       <div class='plate'><div class='label'>COCKPIT</div></div>
     </div>
     <div class='panel' id='panelBoiler'>
       <div class='plate'><div class='label'>BOILER</div></div>
-    </div>
-    <div class='panel' id='panelCargo'>
-      <div class='plate'><div class='label'>CARGO</div></div>
     </div>
     <div class='panel' id='panelLocomotion'>
       <div class='plate'><div class='label'>LOCOMOTION</div></div>

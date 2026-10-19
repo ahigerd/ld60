@@ -20,7 +20,7 @@ for (let factor = 1; factor <= 6; factor++) {
     query.push(`((width < ${maxWidth}px) or (height < ${maxHeight}px))`);
   }
   stylesheets.push(`${query.join(' and ')} {
-    .warning, #clock {
+    .warning, #clock, .tui-Gauge {
       zoom: ${factor};
     }
     SvgAsset {
