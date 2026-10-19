@@ -212,7 +212,7 @@ export default class Progress extends Sprite
       this.updateAnims[State[key]] = this["update" + key].bind(this);
     };
     this._storedRotation = {};
-    this.pressure = 30;
+    this.pressure = 0;
     this.temperature = 0;
     this.speed = 0;
     this.renderSpeed = 0;
@@ -335,10 +335,10 @@ export default class Progress extends Sprite
     }
 
     if (this.temperature < this.throttle * 100) {
-      this.temperature += ms * .1;
+      this.temperature += ms * .05;
       if (this.temperature < 0) this.temperature = 0;
     } else if (this.temperature > this.throttle * 100) {
-      this.temperature -= ms * .1;
+      this.temperature -= ms * .05;
     }
 
     this.stateTimer = (this.stateTimer || 0) + ms;
@@ -349,22 +349,35 @@ export default class Progress extends Sprite
     } else if (this.state == State.Running && this.throttle < 0.5) {
       this.setAnimState(State.Walking);
     }
-    let targetSpeed = this.targetSpeed * this.throttle;
+    let targetSpeed = this.targetSpeed * Math.min(1, this.throttle * 2);
     if (this.speed < targetSpeed) {
       this.pressure -= ms * .1;
-      if (this.pressure < 0) this.pressure = 0;
-      this.speed = Math.min(targetSpeed, this.speed + ms * 0.000005);
+      if (this.pressure <= 0) {
+        console.log('bottomed out');
+        this.pressure = 0;
+        this.speed = Math.max(targetSpeed, this.speed - ms * 0.0001);
+      } else {
+        this.speed = Math.min(targetSpeed, this.speed + ms * 0.000005);
+      }
     } else if (this.speed > targetSpeed) {
-      this.pressure += ms * .1;
-      if (this.pressure > 100) this.pressure = 100;
+      if (this.speed > targetSpeed * 2) {
+        this.pressure -= ms * .1;
+        if (this.pressure < 0) this.pressure = 0;
+      } else {
+        this.pressure += ms * .1;
+        if (this.pressure > 100) this.pressure = 100;
+      }
       this.speed = Math.max(targetSpeed, this.speed - ms * 0.000005);
     }
     if (this.state == State.Standing) {
-      this.pressure -= ms * .02;
-      if (this.pressure < 0) this.pressure = 0;
+      if (this.pressure < 5) {
+        this.pressure += ms * .01;
+      } else {
+        this.pressure -= ms * .02;
+      }
     } else {
-      this.pressure += this.temperature * .0002 * ms;
-      if (this.pressure > 105) this.pressure = 100;
+      this.pressure += this.temperature * .0001 * ms;
+      if (this.pressure > 103) this.pressure = 100;
     }
 
     this.renderSpeed = this.speed * 10000 + Math.sqrt(Math.random()) * (Math.random() < 0.5 ? -0.5 : 0.5) * Math.sqrt(this.speed * 1000);
@@ -379,6 +392,9 @@ export default class Progress extends Sprite
       this.walkAccel = 0;
     } else if (this.state == State.Walking && !(brain && brain.brainDamage())) {
       this.walkAccel += ms;
+      if (this.speed >= targetSpeed && this.throttle > .5) {
+        this.walkAccel += ms * (this.throttle - .5) * 2;
+      }
       if (this.walkAccel >= 5000) {
         this.setAnimState(State.Running);
       }

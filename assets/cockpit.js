@@ -63,7 +63,7 @@ function tick(timestamp)
   ui.cockpitPressure.value = GameManager.player.pressure;
   ui.cockpitPressure.render();
 
-  ui.cockpitTemp.value = GameManager.player.temperature;
+  ui.cockpitTemp.value = GameManager.player.temperature + Math.sqrt(Math.random()) * 3;
   ui.cockpitTemp.render();
 
   ui.cockpitSpeed.value = GameManager.player.renderSpeed;

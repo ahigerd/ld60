@@ -255,10 +255,6 @@ h2 {
   margin: 5px;
 }
 
-#hud img {
-  vertical-align: middle;
-}
-
 #gameOver td {
   font-size: 200%;
   padding: 0 0.5em;
@@ -312,6 +308,7 @@ li {
   width: 20%;
   z-index: 10;
   padding: 20px;
+  padding-top: 75px;
   background-color: #5c4305;
   border-right: 8px solid black;
   text-align: center;
