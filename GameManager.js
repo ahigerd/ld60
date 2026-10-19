@@ -262,7 +262,6 @@ const GameManager = {
     ui.panelBrain.hide();
     ui.panelCockpit.hide();
     ui.panelBoiler.hide();
-    ui.panelCargo.hide();
     ui.panelLocomotion.hide();
 
     this.player.energy = -1;

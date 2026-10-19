@@ -212,6 +212,8 @@ export default class Progress extends Sprite
       this.updateAnims[State[key]] = this["update" + key].bind(this);
     };
     this._storedRotation = {};
+    this.pressure = 30;
+    this.temperature = 0;
     this.speed = 0;
     this.renderSpeed = 0;
     this.timeOfDay = 0;
@@ -332,12 +334,39 @@ export default class Progress extends Sprite
       return;
     }
 
-    this.stateTimer = (this.stateTimer || 0) + ms;
-    if (this.speed < this.targetSpeed) {
-      this.speed = Math.min(this.targetSpeed, this.speed + ms * 0.000005);
-    } else if (this.speed > this.targetSpeed) {
-      this.speed = Math.max(this.targetSpeed, this.speed - ms * 0.000005);
+    if (this.temperature < this.throttle * 100) {
+      this.temperature += ms * .1;
+      if (this.temperature < 0) this.temperature = 0;
+    } else if (this.temperature > this.throttle * 100) {
+      this.temperature -= ms * .1;
     }
+
+    this.stateTimer = (this.stateTimer || 0) + ms;
+    if (this.throttle == 0) {
+      this.setAnimState(State.Standing);
+    } else if (this.state == State.Standing) {
+      this.setAnimState(State.Walking);
+    } else if (this.state == State.Running && this.throttle < 0.5) {
+      this.setAnimState(State.Walking);
+    }
+    let targetSpeed = this.targetSpeed * this.throttle;
+    if (this.speed < targetSpeed) {
+      this.pressure -= ms * .1;
+      if (this.pressure < 0) this.pressure = 0;
+      this.speed = Math.min(targetSpeed, this.speed + ms * 0.000005);
+    } else if (this.speed > targetSpeed) {
+      this.pressure += ms * .1;
+      if (this.pressure > 100) this.pressure = 100;
+      this.speed = Math.max(targetSpeed, this.speed - ms * 0.000005);
+    }
+    if (this.state == State.Standing) {
+      this.pressure -= ms * .02;
+      if (this.pressure < 0) this.pressure = 0;
+    } else {
+      this.pressure += this.temperature * .0002 * ms;
+      if (this.pressure > 105) this.pressure = 100;
+    }
+
     this.renderSpeed = this.speed * 10000 + Math.sqrt(Math.random()) * (Math.random() < 0.5 ? -0.5 : 0.5) * Math.sqrt(this.speed * 1000);
     if (this.speed == 0)
       return;

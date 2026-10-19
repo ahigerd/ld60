@@ -117,8 +117,12 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
       <canvas data-tui-class='Gauge' data-label='PRESSURE' id='cockpitPressure'></canvas>
       <canvas data-tui-class='Gauge' data-label='TEMPERATURE' id='cockpitTemp'></canvas>
       <canvas data-tui-class='Gauge' data-label='SPEED' id='cockpitSpeed'></canvas>
-      <SvgAsset class='cockpitThrottle' data-asset='throttle'></SvgAsset>
-      <SvgAsset class='throttleHandle' data-asset='throttleHandle'></SvgAsset>
+      <div id='throttlePositioner'>
+        <div id='throttleFrame'>
+          <SvgAsset id='cockpitThrottle' data-asset='throttle'></SvgAsset>
+          <SvgAsset id='throttleHandle' data-asset='throttleHandle'></SvgAsset>
+        </div>
+      </div>
       <div class='plate'><div class='label'>COCKPIT</div></div>
     </div>
     <div class='panel' id='panelBoiler'>

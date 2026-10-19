@@ -32,8 +32,13 @@ function update()
     }
     if (Math.random() < 0.75)
       continue;
-    light.svgClass.toggle('lit');
-    light.svgClass.toggle('unlit');
+    if (GameManager.player.state == 0) {
+      light.svgClass.remove('lit');
+      light.svgClass.add('unlit');
+    } else {
+      light.svgClass.toggle('lit');
+      light.svgClass.toggle('unlit');
+    }
   }
 }
 
@@ -42,6 +47,10 @@ function tick(ts)
   if (blown && blinkTimer < ts) {
     blinkTimer = ts + 500;
     ui.toBrain.classList.toggle('lit');
+  }
+  if (GameManager.player && GameManager.player.state == 0) {
+    nextBlow = 0;
+    return;
   }
   if (!nextBlow) {
     nextBlow = ts + Math.random() * 10000 + 5000;

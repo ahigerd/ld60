@@ -2,6 +2,9 @@ import GameManager from '../GameManager.js';
 import ui from '../ui.js';
 
 const ctx = ui.clock.root.getContext('2d');
+let throttleButton = null;
+let throttleRod = null;
+let buttonDown = false;
 
 function tick(timestamp)
 {
@@ -57,26 +60,95 @@ function tick(timestamp)
   ctx.ellipse(100, 100, 4, 4, 0, 0, Math.PI * 2);
   ctx.fill();
 
+  ui.cockpitPressure.value = GameManager.player.pressure;
   ui.cockpitPressure.render();
+
+  ui.cockpitTemp.value = GameManager.player.temperature;
   ui.cockpitTemp.render();
 
   ui.cockpitSpeed.value = GameManager.player.renderSpeed;
   ui.cockpitSpeed.render();
 }
 
-/*
-GameManager.engine.addEventListener('panelChanged', ({ detail: id }) => {
-  if (timerId) {
-    window.clearInterval(timerId);
-    timerId = null;
+function setThrottle(value)
+{
+  GameManager.player.throttle = value;
+  const bounds = ui.cockpitThrottle.root.getBoundingClientRect();
+  let minX = bounds.left;
+  let maxX = bounds.right;
+  const w = maxX - minX;
+  minX += w * (15.5 / 220.0);
+  maxX -= w * (15.5 / 220.0);
+  const scale = (maxX - minX) / w;
+  const pos = value * scale + (minX - bounds.left) / w;
+  ui.throttleHandle.root.style.left = `${pos * 100}%`;
+  ui.throttleHandle.root.style.top = `${17 - 10 * Math.sin(value * Math.PI)}px`;
+  ui.throttleHandle.root.style.zoom = 1.0 + Math.sin(value * Math.PI) * .1;
+  if (value > 0.5) {
+    const rodScale = 2 * (value - 0.5);
+    const rodPos = -225 + 112.5 * (1 - rodScale); //  - ((1 - rodScale) * 183.6);
+    throttleRod.setAttribute('transform', `scale(${-rodScale} 1) translate(${rodPos / rodScale} 0)`);
+  } else {
+    const rodScale = 2 * (0.5 - value);
+    const rodPos = 112.5 / rodScale - 112.5;
+    throttleRod.setAttribute('transform', `scale(${rodScale},1) translate(${rodPos} 0)`);
   }
-  if (id == 'cockpit') {
-    timerId = window.setInterval(update, 100);
+}
+
+function setThrottleButton(event)
+{
+  if (!throttleButton) return;
+  if (!GameManager.isPlaying || !GameManager.engine.running) {
+    return;
   }
-});
-*/
+  buttonDown = (event.type == 'touchstart' || event.type == 'mousedown');
+  throttleButton.setAttribute('y', buttonDown ? 44.859 : 47.768475);
+}
+
+function moveThrottle(event)
+{
+  if (!buttonDown) return;
+  if (!GameManager.isPlaying || !GameManager.engine.running || !event.buttons) {
+    buttonDown = false;
+    throttleButton.setAttribute('y', 47.768475);
+    return;
+  }
+  let x = event.clientX;
+  if (event.changedTouches) {
+    const touch = event.changedTouches[0];
+    x = touch.clientX;
+  }
+
+  const bounds = ui.cockpitThrottle.root.getBoundingClientRect();
+  let minX = bounds.left;
+  let maxX = bounds.right;
+  const w = maxX - minX;
+  minX += w * (15.5 / 220.0);
+  maxX -= w * (15.5 / 220.0);
+  let value = (x - minX) / (maxX - minX);
+  if (value < 0) value = 0;
+  if (value > 1) value = 1;
+  const scale = (maxX - minX) / w;
+  setThrottle(value);
+  const oldValue = value;
+  value = value * scale + (minX - bounds.left) / w;
+  ui.throttleHandle.root.style.left = `${value * 100}%`;
+}
+
+ui.throttleHandle.addEventListener('mousedown', setThrottleButton);
+ui.throttleHandle.addEventListener('touchstart', setThrottleButton);
+
+document.body.addEventListener('mousemove', moveThrottle);
+ui.throttleHandle.addEventListener('touchmove', moveThrottle);
+
+document.body.addEventListener('mouseup', setThrottleButton);
+ui.throttleHandle.addEventListener('touchend', setThrottleButton);
 
 GameManager.engine.addEventListener('newGame', () => {
+  throttleButton = ui.throttleHandle.shadow.querySelector('#throttleButton');
+  throttleRod = ui.cockpitThrottle.shadow.querySelector('#rod');
+  throttleRod.setAttribute('width', 0);
+  setThrottle(0);
 });
 
 GameManager.engine.onTick(tick);

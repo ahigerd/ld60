@@ -19,6 +19,7 @@ for (let factor = 1; factor <= 6; factor++) {
   if (factor < 6) {
     query.push(`((width < ${maxWidth}px) or (height < ${maxHeight}px))`);
   }
+  /*
   stylesheets.push(`${query.join(' and ')} {
     .warning, #clock, .tui-Gauge {
       zoom: ${factor};
@@ -42,7 +43,7 @@ for (let factor = 1; factor <= 6; factor++) {
       top: 0;
     }
     .splashText { font-size: ${minHeight / 25}px }
-    .popover { line-height: 50vh } /*${minHeight / 2}px }*/
+    .popover { line-height: 50vh }
     #hud > div {
       font-size: ${10 * factor}px;
     }
@@ -52,10 +53,20 @@ for (let factor = 1; factor <= 6; factor++) {
     .bigbutton {
       font-size: ${minHeight / 15}px;
     }
-    .meter {
-      margin-left: ${7 * factor}px;
-      height: ${16 * factor}px;
-      width: ${minHeight / 2}px;
+  }`.replaceAll(' px', 'px'));
+  */
+  stylesheets.push(`${query.join(' and ')} {
+    body {
+      zoom: ${factor / 2};
+    }
+    #container {
+      left: calc(50% - ${config.width}px);
+      top: calc(50% - ${config.height}px);
+      width: ${config.width * 2} px;
+      height: ${config.height * 2} px;
+    }
+    .touch.full > #container {
+      top: 0;
     }
   }`.replaceAll(' px', 'px'));
 }
