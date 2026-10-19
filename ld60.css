@@ -154,14 +154,16 @@ h1 {
   font-size: 5vmin;
 }
 
+/*
 canvas, img {
   -moz-image-rendering: crisp-edges;
   image-rendering: -moz-crisp-edges;
   image-rendering: pixelated;
   -webkit-optimize-contrast: pixelated;
 }
+*/
 
-#camera canvas {
+#camera > canvas {
   position: absolute;
   top: 0;
   left: 0;
@@ -169,7 +171,7 @@ canvas, img {
   height: 100%;
 }
 
-#camera canvas:first-of-type {
+#camera > canvas:first-of-type {
   background-color: #000000;
 }
 
@@ -678,4 +680,15 @@ SvgAsset {
 
 #panelBrain td {
   text-align: center;
+}
+
+#clock {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: darkgoldenrod;
 }

@@ -20,7 +20,7 @@ for (let factor = 1; factor <= 6; factor++) {
     query.push(`((width < ${maxWidth}px) or (height < ${maxHeight}px))`);
   }
   stylesheets.push(`${query.join(' and ')} {
-    .warning {
+    .warning, #clock {
       zoom: ${factor};
     }
     SvgAsset {
@@ -39,11 +39,6 @@ for (let factor = 1; factor <= 6; factor++) {
     .popover { line-height: 50vh } /*${minHeight / 2}px }*/
     #hud td {
       font-size: ${10 * factor}px;
-    }
-    #hud img {
-      height: ${21 * factor}px;
-      margin-top: ${2 * factor}px;
-      margin-bottom: ${2 * factor}px;
     }
     h1 {
       font-size: ${minHeight / 10}px;

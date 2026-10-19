@@ -7,6 +7,11 @@ let nextBlow = null;
 let blown = 0;
 let blinkTimer = 0;
 
+export function brainDamage()
+{
+  return blown;
+}
+
 function update()
 {
   if (!GameManager.isPlaying || !GameManager.engine.running) {

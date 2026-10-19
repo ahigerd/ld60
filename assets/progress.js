@@ -3,6 +3,10 @@ import Point from '../html52d/Point.js';
 import Rect from '../html52d/Rect.js';
 import ui from '../ui.js';
 import CONFIG from '../config.js';
+import assets from '../assets.js';
+
+let brain = null;
+assets.require('assets/brain.js').then(([m]) => brain = m);
 
 const SCALE = 80;
 const WIDTH = CONFIG.width * 6 / SCALE;
@@ -210,6 +214,10 @@ export default class Progress extends Sprite
     this._storedRotation = {};
     this.speed = 0;
     this.timeOfDay = 0;
+    this.lengthOfDay = 60000;
+    this.reversing = false;
+    this.reverseTick = 0;
+    this.walkAccel = 0;
     this.setAnimState(State.Walking);
   }
 
@@ -271,7 +279,26 @@ export default class Progress extends Sprite
 
   updateWalking(ms)
   {
-    this._timer += ms * 0.005;
+    if (this.reversing) {
+      this.reversing -= ms;
+      if (this.reversing < 0) {
+        this.reversing = false;
+      }
+      this._timer -= ms * 0.01;
+    } else {
+      this._timer += ms * 0.005;
+    }
+
+    if (brain && brain.brainDamage()) {
+      if (this.reverseTick <= 0) {
+        // TODO: sfx
+        this.reversing = 125;
+        this.reverseTick = 250 + Math.random() * 250;
+      } else {
+        this.reverseTick -= ms;
+      }
+    }
+
     if (this._timer > Math.PI * 2) {
       this._timer -= Math.PI * 2;
       this.strides++;
@@ -307,7 +334,16 @@ export default class Progress extends Sprite
     }
     if (this.speed == 0)
       return;
-    this.body.origin.x += this.speed * ms * 0.5;
+    this.body.origin.x += this.speed * ms * (this.reversing > 0 ? -0.1 : 0.5);
+    if (this.state == State.Running && brain && brain.brainDamage()) {
+      this.setAnimState(State.Walking);
+      this.walkAccel = 0;
+    } else if (this.state == State.Walking && !(brain && brain.brainDamage())) {
+      this.walkAccel += ms;
+      if (this.walkAccel >= 5000) {
+        this.setAnimState(State.Running);
+      }
+    }
     this.updateAnims[this.state](ms);
     for (const cloud of this.clouds) {
       cloud.origin.x -= this.speed * ms * 0.25;
@@ -339,7 +375,7 @@ export default class Progress extends Sprite
 
   renderTime(layer)
   {
-    let time = this.timeOfDay / 60000;
+    let time = this.timeOfDay / this.lengthOfDay;
     let r, g, b;
     let a = time * 0.125;
     if (time < 0.5) {

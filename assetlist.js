@@ -9,6 +9,7 @@ export default {
   require: {
     map: 'assets/map.js',
     brain: 'assets/brain.js',
+    cockpit: 'assets/cockpit.js',
   },
   data: {
     tube: 'assets/tube.svg',

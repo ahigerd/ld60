@@ -129,7 +129,7 @@ export class AssetStore extends EventTargetClass {
     return this.images[key] = new Promise((resolve, reject) => {
       element.addEventListener('load', () => resolve(this.images[key] = element));
       element.addEventListener('error', e => reject(e));
-      element.src = url;
+      element.src = url + '?cb=' + Date.now();
     }).then(this._bindDoneLoading(key, 'images'));
   }
 
@@ -164,7 +164,7 @@ export class AssetStore extends EventTargetClass {
       return Promise.resolve(this.data[key]);
     }
     this._startLoading(key, 'data');
-    return this.data[key] = fetch(url)
+    return this.data[key] = fetch(url + '?cb=' + Date.now())
       .then(response => response.text())
       .then(this._bindDoneLoading(key, 'data'));
   }
