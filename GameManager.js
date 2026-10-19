@@ -58,13 +58,12 @@ const GameManager = {
 
     this.assets = assets;
     this.bgm = assets.sounds.bgm;
-    //this.bgm.gain = 0.5;
+    if (this.bgm) this.bgm.gain = 0.5;
 
     this.bindEvent(ui.startButton, 'click', this.bindFullscreenThen(this.newGameNormal));
     this.bindEvent(ui.easyButton, 'click', this.bindFullscreenThen(this.newGameEasy));
     this.bindEvent(ui.helpButton, 'click', this.showHelp);
     this.bindEvent(ui.helpBackButton, 'click', this.helpBack.bind(this));
-    this.bindEvent(ui.helpNextButton, 'click', this.helpNext.bind(this));
     this.bindEvent(ui.gameOverStartButton, 'click', this.showTitle);
     this.bindEvent(ui.exitButton, 'click', this.gameOver);
     this.bindEvent(ui.resumeButton, 'click', this.bindFullscreenThen(() => this.engine.start()));
@@ -94,7 +93,6 @@ const GameManager = {
     this.touchControls.touchEnabled = false;
 
     GameManager.showTitle();
-    GameManager.newGame();
   },
 
   bindEvent(target, eventName, callback, options = undefined) {
@@ -235,7 +233,7 @@ const GameManager = {
   },
 
   onPause() {
-    //this.bgm.pause();
+    if (this.bgm) this.bgm.pause();
     document.body.classList.add('paused');
     if (this.isPlaying && state == "playing") {
       this.exitFullscreen();
@@ -252,7 +250,7 @@ const GameManager = {
       this.touchControls.hidden = false;
       ui.fullscreen.classList.add('touch');
     }
-    //this.bgm.play();
+    if (this.bgm) this.bgm.play();
   },
 
   winGame() {
@@ -261,16 +259,22 @@ const GameManager = {
   },
 
   gameOver() {
+    ui.panelBrain.hide();
+    ui.panelCockpit.hide();
+    ui.panelBoiler.hide();
+    ui.panelCargo.hide();
+    ui.panelLocomotion.hide();
+
     this.player.energy = -1;
     this.player.haltTimer = -1;
-    this.bgm.stop();
+    if (this.bgm) this.bgm.stop();
     this.exitFullscreen();
     this.setState('gameover');
     for (const layer of this.camera.layers) {
       layer.clearRect(0, 0, this.camera.pixelWidth, this.camera.pixelHeight);
     }
-    ui.gameOverLevel.root.innerText = this.level;
-    ui.gameOverPods.root.innerText = this.podsRescued;
+    //ui.gameOverLevel.root.innerText = this.level;
+    //ui.gameOverPods.root.innerText = this.podsRescued;
     if (this.win) {
       ui.gameOverWin.show();
       ui.gameOverLose.hide();
@@ -336,8 +340,8 @@ const GameManager = {
       this.scene.add(obj);
     }
     */
-    //this.bgm.stop();
-    //this.bgm.play();
+    if (this.bgm) this.bgm.stop();
+    if (this.bgm) this.bgm.play();
   },
 
   helpBack() {
@@ -345,18 +349,9 @@ const GameManager = {
     this.updateHelp();
   },
 
-  helpNext() {
-    helpPage++;
-    this.updateHelp();
-  },
-
   updateHelp() {
     if (helpPage == 1) {
       ui.help1.show();
-      ui.help2.hide();
-    } else if (helpPage == 2) {
-      ui.help1.hide();
-      ui.help2.show();
     } else {
       this.showTitle();
     }

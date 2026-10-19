@@ -11,7 +11,7 @@ assets.require('assets/brain.js').then(([m]) => brain = m);
 const SCALE = 80;
 const WIDTH = CONFIG.width * 6 / SCALE;
 
-const State = {
+export const State = {
   Standing: 0,
   Walking: 1,
   Running: 2,
@@ -214,7 +214,7 @@ export default class Progress extends Sprite
     this._storedRotation = {};
     this.speed = 0;
     this.timeOfDay = 0;
-    this.lengthOfDay = 60000;
+    this.lengthOfDay = 120000;
     this.reversing = false;
     this.reverseTick = 0;
     this.walkAccel = 0;
@@ -326,6 +326,11 @@ export default class Progress extends Sprite
   update(scene, ms)
   {
     this.timeOfDay += ms;
+    if (this.timeOfDay > this.lengthOfDay) {
+      GameManager.gameOver();
+      return;
+    }
+
     this.stateTimer = (this.stateTimer || 0) + ms;
     if (this.speed < this.targetSpeed) {
       this.speed = Math.min(this.targetSpeed, this.speed + ms * 0.000005);

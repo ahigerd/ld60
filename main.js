@@ -29,6 +29,9 @@ for (let factor = 1; factor <= 6; factor++) {
     .plate {
       font-size: ${10 * factor}px;
     }
+    #help1 {
+      font-size: ${12 * factor}px;
+    }
     #container {
       left: calc(50% - ${minWidth / 2}px);
       top: calc(50% - ${minHeight / 2}px);

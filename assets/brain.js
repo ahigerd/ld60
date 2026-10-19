@@ -1,11 +1,16 @@
 import GameManager from '../GameManager.js';
 import ui from '../ui.js';
+import assets from '../assets.js';
+
+let State;
+assets.require('assets/progress.js').then(([progress]) => State = progress.State);
 
 let timerId = null;
 let lights = [];
 let nextBlow = null;
 let blown = 0;
 let blinkTimer = 0;
+let altTick = false;
 
 export function brainDamage()
 {
@@ -15,6 +20,10 @@ export function brainDamage()
 function update()
 {
   if (!GameManager.isPlaying || !GameManager.engine.running) {
+    return;
+  }
+  altTick = !altTick;
+  if (!altTick && GameManager.player.state == State.Walking) {
     return;
   }
   for (const light of lights) {
@@ -79,7 +88,7 @@ GameManager.engine.addEventListener('panelChanged', ({ detail: id }) => {
     timerId = null;
   }
   if (id == 'brain') {
-    timerId = window.setInterval(update, 100);
+    timerId = window.setInterval(update, 50);
   }
 });
 

@@ -132,11 +132,13 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
     </div>
   </div>
   <div id='splash'>
-    <h1>Untitled</h1>
+    <h1>Antiques Mech Show</h1>
     <div class='splashText'>
-      TODO<br/><br/>
+      You discovered a really old giant robot! The body is still in good shape, but the internals need a lot of work.
+      If you can get it to the museum before it closes at 9:00 PM, you can see about getting it restored!<br/><br/>
 
-      <div style='text-align: center; font-size: 70%'>Keyboard and touch controls available. Press Help for more information.</div>
+      However: The only way to get it there is to pilot it! You're going to have to keep an eye on all of its systems
+      and repair whatever breaks along the way if you want to make it in time!
     </div>
     <a id='startButton' class='bigbutton start'>Start Game</a>
     <a id='easyButton' class='bigbutton easy' style='display:none'>Easy Mode</a>
@@ -146,42 +148,22 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
   <div id='helppage'>
     <h1>How to Play</h1>
     <div class='splashText' style='text-align:center'>
-      <table width='50%' align='center' style='font-size: 20px' id='help1'>
-        <tr><th align='center'><u>Action</u></th>
-            <th align='center'><u>Lefty</u></th>
-            <th align='center'><u>Righty</u></th>
-            <th align='center'><u>Touch</u></th></tr>
-        <tr><td>Move</td>
-            <td><span class='keyboard'>W</span>
-                <br/>
-                <span class='keyboard'>A</span>
-                <span class='keyboard'>S</span>
-                <span class='keyboard'>D</span>
-            </td>
-            <td><span class='keyboard'>&uarr;</span>
-                <br/>
-                <span class='keyboard'>&larr;</span>
-                <span class='keyboard'>&darr;</span>
-                <span class='keyboard'>&rarr;</span>
-            </td>
-            <td><span style='font-size:200%'>&#x271A;</span> <span>D-Pad</span></td>
-        </tr>
-        <tr><td>Fire</td>
-          <td><span class='keyboard spacebar'>Space</span></td>
-          <td><span class='keyboard'>Z</span></td>
-          <td><span class='touch'>Fire</span></td>
-        </tr>
-        <tr><td>Pause</td>
-          <td colspan='2'><span class='keyboard' style='padding: 2px 8px'>Escape</span></td>
-          <td><span class='touch'>Pause</span></td>
-        </tr>
+      <table width='100%' id='help1' border='0' style='text-align:left;display:none'>
+        <tr><td valign='top'><ul style='margin-top:1em;text-align:left'>
+          <li>Play with either a mouse or a touchscreen.</li>
+          <li>Use the buttons on the left to move between areas.</li>
+          <li>An illuminated button warns of a failed part.</li>
+          <li>Click on a failed part to replace it.</li>
+        </ul></td>
+        <td valign='top'><ul style='margin-top:1em;text-align:left'>
+          <li>The robot will run if everything is kept repaired.</li>
+          <li>The robot will malfunction if parts are damaged.</li>
+          <li>Overloaded systems increase the risk of damage.</li>
+          <li>The museum closes at 9:00. Watch the clock!</li>
+        </ul></td></tr>
       </table>
-      <ul style='font-size: 20px;text-align:left;display:none' id='help2'>
-        <li>TODO</li>
-      </ul>
     </div>
     <a id='helpBackButton' class='bigbutton help'>&lt; Back</a>
-    <a id='helpNextButton' class='bigbutton help'>Next &gt;</a>
   </div>
   <div id='pauseBox' class='popover'>
     <div>
@@ -200,6 +182,11 @@ document.write(`<link rel="stylesheet" href="ld60.css?cb=${Math.random()}" />`);
       </div>
       <div id='gameOverLose'>
         <h2><u>Game Over</u></h2>
+        <div style='font-size: 20pt'>
+          The museum is closed!<br/><br/>
+
+          You'll have to come back tomorrow.
+        </div>
       </div>
       <a id='gameOverStartButton' class='bigbutton start'>Return to Title</a>
     </div>
